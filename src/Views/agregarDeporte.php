@@ -15,5 +15,7 @@
         </br></br>
         <input type="submit" value="Guardar Deporte">
     </form>
+
+    <a href="index.php?controller=Deporte&action=listarDeportes">Volver</a>
 </body>
 </html>
