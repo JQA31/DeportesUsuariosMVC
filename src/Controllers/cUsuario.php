@@ -1,5 +1,5 @@
 <?php
-    require_once "../src/Models/mUsuario.php";
+    require_once "Models/mUsuario.php";
     Class cUsuario{
         private $modelo;
         public $vista;
@@ -92,11 +92,7 @@
             $this->vista = "pantallaInicio.php";
         }
 
-        public function listarDeportes(){
-            $deportes = $this->modelo->listarDeportes();
-            $this->mensaje["deportesUs"] = $deportes;
-            $this->vista = "pantallaInicio.php";
-        }
+        
 
         public function cerrarSesion(){
             session_start();

@@ -1,5 +1,5 @@
 <?php
-require_once "../src/Config/Conexion.php";
+require_once "Config/Conexion.php";
 class mUsuario extends Conexion{
     public function __construct(){
         parent::__construct();
@@ -98,21 +98,6 @@ class mUsuario extends Conexion{
         }catch(Exception $e){
             return [];
         }
-    }
-
-    public function listarDeportes(){
-        $sql = "SELECT deportes.nombreDep, COUNT(usuarios_deportes.idUsuario) AS numeroUsuarios
-            FROM usuarios_deportes 
-            INNER JOIN deportes ON usuarios_deportes.idDeporte = deportes.idDeporte
-            GROUP BY deportes.idDeporte";
-
-        $stmt = $this->conexion->prepare($sql);
-
-        $stmt->execute();
-
-        $resultado = $stmt->get_result();
-
-        return $resultado->fetch_all(MYSQLI_ASSOC);
     }
 
     public function totalAlumnosInscritos(){

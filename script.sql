@@ -20,7 +20,7 @@ CREATE TABLE usuarios(
     perfil char(1) NOT NULL CHECK(perfil="c" or perfil="u")
 )
 
-CREATE TABLE usuariosDeportes(
+CREATE TABLE usuarios_deportes(
     idDeporte tinyint unsigned, 
     idUsuario tinyint unsigned,
     PRIMARY KEY (idDeporte, idUsuario),
@@ -31,16 +31,12 @@ CREATE TABLE usuariosDeportes(
 INSERT INTO deportes (nombreDep) VALUES 
 ('Fútbol'),
 ('Baloncesto'),
-('Tenis'),
-('Natación'),
-('Voleibol'),
-('Atletismo'),
-('Boxeo'),
-('Ciclismo'),
-('Rugby'),
-('Golf'),
-('Pádel'),
-('Béisbol'),
-('Hockey'),
-('Esgrima'),
-('Kárate');
+('Tenis');
+
+ALTER TABLE deportes ADD COLUMN imagen VARCHAR(255) NULL;
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY '123456789';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON deportes_usuarios.* TO 'user'@'localhost';
+
+FLUSH PRIVILEGES;
