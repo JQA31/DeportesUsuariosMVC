@@ -39,7 +39,7 @@ class cDeporte {
             $this->mensaje['mensaje'] = "Error al subir la imagen al servidor. Revisa permisos de carpeta img/.";
         }
 
-        $this->vista = "pantallaInicio.php"; 
+        $this->listarDeportes();
     }
 
     public function listarDeportes(){
@@ -60,7 +60,7 @@ class cDeporte {
         }else{
             $this->mensaje["mensaje"] = "Fallo al intentar borrar el deporte";
         }
-        $this->vista = "pantallaInicio.php";
+        $this->listarDeportes();
     }
 
     public function modificarDeporte(){
@@ -84,7 +84,7 @@ class cDeporte {
         }else{
             $this->mensaje["mensaje"] = "Fallo al intentar modificar el deporte";
         }
-        $this->vista = "pantallaInicio.php";
+        $this->listarDeportes();
     }
     
     public function obtenerDeportes(){  
