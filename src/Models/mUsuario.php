@@ -35,8 +35,13 @@ class mUsuario extends Conexion{
 
             return true;
 
+            return true;
+
         } catch (Exception $e) {
-            return false;
+            if ($this->conexion->errno == 1062) {
+                return "Error: El usuario o correo ya existe";
+            }
+            return $e->getMessage();
         }
     }
 

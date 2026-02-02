@@ -40,9 +40,9 @@ ALTER TABLE deportes ADD COLUMN imagen VARCHAR(255) NULL;
 
 
 /*Usuario que utiliza la app*/
-CREATE USER 'user'@'localhost' IDENTIFIED BY '123456789';
+CREATE USER 'usuarioUD'@'localhost' IDENTIFIED BY '123456789';
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON deportes_usuarios.* TO 'user'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON deportes_usuarios.* TO 'usuarioUD'@'localhost';
 
 FLUSH PRIVILEGES;
 

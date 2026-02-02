@@ -8,9 +8,14 @@
 </head>
 <body>
     <?php
-        if (session_status() === PHP_SESSION_NONE) session_start();
-        $user = $_SESSION['usuario'] ?? null;
-        if($user && $user['perfil'] === "c"){
+        if (!isset($_SESSION['usuario'])){
+            echo "<h1>No se ha iniciado sesion</h1>";
+            echo "<h2><a href='index.php?controller=Usuario&action=iniciarSesionV'>Iniciar Sesion</a></h2>";
+            exit();
+        }else{
+            $user = $_SESSION['usuario'];
+        }   
+        if($user['perfil'] === "c"){
             echo "<h1>PANTALLA INICIO ADMIN</h1>";
             echo "<h2>Bienvenido, " . $user['apeNombre'] . "</h2>";
         }else{

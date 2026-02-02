@@ -15,9 +15,12 @@ class mDeporte extends Conexion {
             if ($stmt->execute()) {
                 return true;
             }
-            return false;
+            throw new Exception("Error al insertar el deporte");
         } catch (Exception $e) {
-            return false;
+             if ($this->conexion->errno == 1062) {
+                return "Error: El deporte ya existe";
+            }
+            return $e->getMessage();
         }
     }
 
@@ -47,6 +50,9 @@ class mDeporte extends Conexion {
                 throw new Exception("Error al eliminar el deporte");
             }
         }catch(Exception $e){
+            if ($this->conexion->errno == 1451) {
+                return "Error: No se puede borrar, hay usuarios asociados";
+            }
             return $e->getMessage();
         }
     }
@@ -56,12 +62,15 @@ class mDeporte extends Conexion {
             $sql = "UPDATE deportes SET nombreDep = ?, imagen = ? WHERE idDeporte = ?";
             $stmt = $this->conexion->prepare($sql);
             $stmt->bind_param("ssi",$nombreDeporte,$nombreImagen, $idDeporte);
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 return true;
-            }else{
+            } else {
                 throw new Exception("Error al modificar el deporte");
             }
         }catch(Exception $e){
+            if ($this->conexion->errno == 1062) {
+                return "Error: El nombre del deporte ya existe";
+            }
             return $e->getMessage();
         }
     }
@@ -75,7 +84,7 @@ class mDeporte extends Conexion {
             $resultado = $stmt->get_result();
             return $resultado->fetch_all(MYSQLI_ASSOC);
         }catch(Exception $e){
-            return $e->getMessage();
+            return $e->getMessage();    
         }
     }
 

@@ -1,4 +1,6 @@
 <?php
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    
     if(!isset($_GET['controller'])){
         $controlador = 'Usuario';
     }else{
@@ -11,7 +13,19 @@
         $accion = $_GET['action'];
     }
 
+    $controladoresPublicos=["Usuario"];
+
+	if(!in_array($controlador, $controladoresPublicos) && !isset($_SESSION['usuario'])){
+		$controlador='Usuario';
+		$accion='iniciarSesionV';
+	}
+
     $rutaControlador = "Controllers/c".$controlador.".php";
+
+    if(!file_exists($rutaControlador)){
+		$controlador='Usuario';
+		$accion='iniciarSesionV';
+	}
 
     include $rutaControlador;
 

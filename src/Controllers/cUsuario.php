@@ -14,7 +14,6 @@
         }
 
         public function iniciarSesionV(){
-            //Este metodo solo redirige a la vista de iniciar sesión
             $this->vista = "inicioSesion.php";
         }
 
@@ -69,11 +68,12 @@
                 $this->mensaje["mensaje"] = "Error en la introducción de datos";
                 
             }else{
-                if($this->modelo->añadirUsuario($nombreUsuario,$apellidoNombre,$password,$email,$telefono,$deportes)==true){
+                $resultado = $this->modelo->añadirUsuario($nombreUsuario,$apellidoNombre,$password,$email,$telefono,$deportes);
+                if($resultado === true){
                     $this->mensaje["mensaje"] = "Datos correctos";
                     $this->vista = "inicioSesion.php";
                 }else{
-                    $this->mensaje["mensaje"] = "Error en la inserción de datos";
+                    $this->mensaje["mensaje"] = $resultado;
                     $this->registrarUsuarioV();
                 }
             }
@@ -144,11 +144,12 @@
                 $this->mensaje["mensaje"] = "Error en la introducción de datos";
                 
             }else{
-                if($this->modelo->modificarUsuario($idUsuario,$nombreUsuario,$apellidoNombre,$email,$telefono,$deportes)==true){
+                $resultado = $this->modelo->modificarUsuario($idUsuario,$nombreUsuario,$apellidoNombre,$email,$telefono,$deportes);
+                if($resultado === true){
                     $this->mensaje["mensaje"] = "Datos correctos";
                     $this->listarUsuarios();
                 }else{
-                    $this->mensaje["mensaje"] = "Error en la inserción de datos";
+                    $this->mensaje["mensaje"] = $resultado;
                     $this->modificarUsuarioV();
                 }
             }

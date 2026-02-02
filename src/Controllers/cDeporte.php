@@ -30,10 +30,11 @@ class cDeporte {
         $rutaCompleta = $directorioDestino . $nombreArchivo;
 
         if (move_uploaded_file($archivo['tmp_name'], $rutaCompleta)) {
-            if ($this->modelo->insertarDeporte($nombre, $nombreArchivo)) {
+            $resultado = $this->modelo->insertarDeporte($nombre, $nombreArchivo);
+            if ($resultado === true) {
                 $this->mensaje['mensaje'] = "Deporte e imagen guardados con éxito";
             } else {
-                $this->mensaje['mensaje'] = "Error al guardar en la base de datos";
+                $this->mensaje['mensaje'] = $resultado;
             }
         } else {
             $this->mensaje['mensaje'] = "Error al subir la imagen al servidor. Revisa permisos de carpeta img/.";
@@ -51,10 +52,11 @@ class cDeporte {
     public function borrarDeporte(){
         $idDeporte = $_GET["id"];
         if(isset($idDeporte)){
-            if($this->modelo->borrarDeporte($idDeporte)===true){
+            $resultado = $this->modelo->borrarDeporte($idDeporte);
+            if($resultado === true){
                 $this->mensaje["mensaje"] = "Deporte borrado correctamente";
             }else{
-                $this->mensaje["mensaje"] = "Fallo al borrar el deporte";
+                $this->mensaje["mensaje"] = $resultado;
             }
             
         }else{
@@ -72,10 +74,11 @@ class cDeporte {
             $nombreArchivo = time() . "_" . $imagen['name'];
             $rutaCompleta = $directorioDestino . $nombreArchivo;
             if (move_uploaded_file($imagen['tmp_name'], $rutaCompleta)) {
-                if($this->modelo->modificarDeporte($idDeporte,$nombreDeporte,$nombreArchivo)===true){
+                $resultado = $this->modelo->modificarDeporte($idDeporte,$nombreDeporte,$nombreArchivo);
+                if($resultado === true){
                     $this->mensaje["mensaje"] = "Deporte modificado correctamente";
                 }else{
-                    $this->mensaje["mensaje"] = "Fallo al modificar el deporte";    
+                    $this->mensaje["mensaje"] = $resultado;    
                 }
             }else{
                 $this->mensaje["mensaje"] = "Error al subir la imagen al servidor. Revisa permisos de carpeta img/.";
