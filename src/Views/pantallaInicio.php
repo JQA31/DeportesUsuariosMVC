@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pantalla de Inicio</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <?php
@@ -15,6 +16,12 @@
         }else{
             echo "<h1>PANTALLA INICIO USER</h1>";
             echo "<h2>Bienvenido, " . $user['apeNombre'] . "</h2>";
+        }
+    ?>
+
+    <?php
+        if(isset($controlador->mensaje["mensaje"])){
+            echo "<h3>".$controlador->mensaje["mensaje"]."</h3>";
         }
     ?>
 
@@ -36,26 +43,39 @@
 
     <?php
         if(isset($controlador->mensaje['usuariosDep'])){
-            echo "<h3>Datos:</h3>";
+            $ultimoId = $controlador->mensaje['usuariosDep'][0]['idUsuario'];
+            echo "<h3>" . $controlador->mensaje['usuariosDep'][0]['nombreUsuario'] . " ---- 
+            <a href='index.php?controller=Usuario&action=borrarUsuario&id=".$controlador->mensaje['usuariosDep'][0]['idUsuario']."'>Eliminar</a>
+            <a href='index.php?controller=Usuario&action=modificarUsuarioV&id=".$controlador->mensaje['usuariosDep'][0]['idUsuario']."'>Modificar</a></h3>";
             foreach($controlador->mensaje['usuariosDep'] as $fila){
-                echo "<p>".$fila['nombreUsuario']." - ".$fila['nombreDep']."</p>";
+                if($fila['idUsuario'] === $ultimoId){
+                    echo "<p> - ".$fila['nombreDep']."</p>";
+                }else{
+                    $ultimoId = $fila['idUsuario'];
+                    echo "<h3>" . $fila['nombreUsuario'] . " ---- 
+                    <a href='index.php?controller=Usuario&action=borrarUsuario&id=".$fila['idUsuario']."'>Eliminar</a>
+                    <a href='index.php?controller=Usuario&action=modificarUsuarioV&id=".$fila['idUsuario']."'>Modificar</a></h3>";
+                    echo "<p> - ".$fila['nombreDep']."</p>";
+                   
+                }
             }
         }
     ?>
 
     <?php
         if(isset($controlador->mensaje['alumnos'])){
-            echo "<h3>Datos:</h3>";
-            echo "<p> Numero de Alumnos en deportes: ".$controlador->mensaje['alumnos']['numeroUsuarios']." </p>";
+            echo "<h3> Numero de Alumnos en deportes: ".$controlador->mensaje['alumnos']['numeroUsuarios']." </h3>";
         }
     ?>
 
     <?php
         if(isset($controlador->mensaje['deportesUs'])){
-            echo "<h3>Datos:</h3>";
             foreach($controlador->mensaje['deportesUs'] as $fila){
-                echo "<p>".$fila['nombreDep']." - ".$fila['numeroUsuarios']."</p>";
-                echo "<img src='../img/" . $fila['imagen'] . "'>";
+                echo "<h3>".$fila['nombreDep']."</h3>";
+                echo "<p> Numero de Alumnos en este deporte: ".$fila['numeroUsuarios']." </p>";
+                echo "<img width='100' src='../img/" . $fila['imagen'] . "'>";
+                echo "<p><a href='index.php?controller=Deporte&action=borrarDeporte&id=".$fila['idDeporte']."'>Eliminar</a></p>";
+                echo "<p><a href='index.php?controller=Deporte&action=formularioModificarDeporteV&id=".$fila['idDeporte']."'>Modificar</a></p>";
             }
         }
     ?>

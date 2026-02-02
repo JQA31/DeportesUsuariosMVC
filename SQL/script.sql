@@ -2,6 +2,7 @@ CREATE DATABASE deportes_usuarios;
 
 USE deportes_usuarios;
 
+/*Se crea administrador, un usuario con todos los permisos, para gestionar la app*/
 CREATE USER 'admin_deportes'@'localhost' IDENTIFIED BY '123456';
 GRANT ALL PRIVILEGES ON deportes_usuarios.* TO 'admin_deportes'@'localhost';
 
@@ -33,10 +34,16 @@ INSERT INTO deportes (nombreDep) VALUES
 ('Baloncesto'),
 ('Tenis');
 
+/*Para actualizar la tabla deportes y poder guardar imagenes.
+Esta columna a null para que no interfiera con los datos que ya habian*/
 ALTER TABLE deportes ADD COLUMN imagen VARCHAR(255) NULL;
 
+
+/*Usuario que utiliza la app*/
 CREATE USER 'user'@'localhost' IDENTIFIED BY '123456789';
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON deportes_usuarios.* TO 'user'@'localhost';
 
 FLUSH PRIVILEGES;
+
+/**/

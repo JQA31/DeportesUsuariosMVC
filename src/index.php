@@ -15,10 +15,11 @@
 
     include $rutaControlador;
 
-    $clase = "C".$controlador;
+    $clase = "c".$controlador;
+
     $controlador = new $clase();
 
     $datos = $controlador->$accion();
-
+    
     require_once "Views/".$controlador->vista;
 ?>
